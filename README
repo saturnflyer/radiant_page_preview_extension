@@ -1,0 +1,12 @@
+Page Preview Radiant Extension
+==============================
+
+Plug this extension in and you can view previews of pages, even if they are in "draft" mode.
+
+A button is available on the edit page linking to the preview.
+Also you can get to the page by this url structure: `/admin/pages/preview/:id`
+
+
+Based on the extension found here:
+http://dev.eyebeam.org/svn/radiant-partatts/radiant/vendor/extensions/page_preview/
+
