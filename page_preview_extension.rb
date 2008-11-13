@@ -1,18 +1,19 @@
+require_dependency 'application'
+
 class PagePreviewExtension < Radiant::Extension
-  version "0.1"
-  description "A sample page-preview functionality.  An example of how you can hook into the page-editing interface with the enhancements in the 'facets' branch."
-  url "http://radiantcms.org"
+  version "1.0"
+  description "A sample page-preview functionality."
+  url "http://github.com/brianjlandau/radiant_page_preview_extension"
 
   define_routes do |map|
-    map.preview_page "admin/page/preview/:id", :controller => "admin/page", :action => "preview"
-    map.preview_pages "admin/pages/preview/:id", :controller => "admin/page", :action => "preview"
+    map.resources :preview, :path_prefix => 'admin', :controller => 'Admin::PreviewController'
+    map.preview_page, 'admin/preview', :controller => 'Admin::PreviewController', 
+                                       :action => 'create',
+                                       :conditions => { :method => :post }
   end
   
   def activate
-    require 'application'
-    
     admin.page.edit.add :form_bottom, "preview_button", :before => 'edit_buttons'
-    Admin::PageController.send :include, PreviewControllerExtensions
   end
   
   def deactivate

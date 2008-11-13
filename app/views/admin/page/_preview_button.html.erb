@@ -1,4 +1,14 @@
 <p class="preview-link">
-	<%= link_to 'Preview Page', preview_pages_path(@page), :target => 'preview' %>
+  <script type="text/javascript" charset="utf-8">
+    function preview_html(html_text){
+      preview_window = window.open('', 'page_preview', 'resizable=yes,status=yes');
+      preview_doc = preview_window.document;
+      preview_doc.open();
+      preview_doc.write(html_text);
+      preview_doc.close();
+    }
+  </script>
+	<%= submit_to_remote 'preview_page', 'Preview Page', :url => preview_page_path, :method => :post, 
+	                     :success => "preview_html(request.responseText);" %>
 </p>
   

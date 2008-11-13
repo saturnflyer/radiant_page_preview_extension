@@ -4,7 +4,7 @@ describe Admin::PageController, "routes preview page requests" do
   scenario :pages
   
   it "route a preview page correctly" do
-    route_for(preview_page_path(1)).should_equal "/admin/page/preview/1"
+    route_for(preview_page_path).should_equal "/admin/preview"
   end
   
 end
