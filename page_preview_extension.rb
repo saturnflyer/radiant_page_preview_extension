@@ -6,8 +6,8 @@ class PagePreviewExtension < Radiant::Extension
   url "http://github.com/brianjlandau/radiant_page_preview_extension"
 
   define_routes do |map|
-    map.resources :preview, :path_prefix => 'admin', :controller => 'Admin::PreviewController'
-    map.preview_page 'admin/preview', :controller => 'Admin::PreviewController', 
+    map.resources :preview, :path_prefix => 'admin', :controller => 'admin/preview'
+    map.preview_page 'admin/preview', :controller => 'admin/preview', 
                                        :action => 'create',
                                        :conditions => { :method => :post }
   end
