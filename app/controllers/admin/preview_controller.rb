@@ -26,7 +26,7 @@ class Admin::PreviewController < ApplicationController
       end
     else
       render :update do |page|
-        page.alert("Could not preview the page!\n\n\t-#{@page.errors.full_messages.join("\n\n\t-")}")
+        page.alert("Could not preview the page!\n\n\t-#{@page.errors.full_messages.join("\n\t-")}")
       end
     end
   end
