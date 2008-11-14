@@ -10,6 +10,6 @@
     }
   </script>
 	<%= submit_to_remote 'preview_page', 'Preview Page', :url => preview_page_path, :method => :post, 
-	                     :success => "preview_html(request.responseText);" :html => {:class => 'button'} %>
+	                     :success => "preview_html(request.responseText);", :html => {:class => 'button'} %>
 </p>
   
