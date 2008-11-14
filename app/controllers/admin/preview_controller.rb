@@ -21,7 +21,7 @@ class Admin::PreviewController < ApplicationController
         render :text => "Could not preview the page! #{ex.message}" unless @performed_render
       end
     else
-      render :text => "Could not preview the page!"
+      render :text => "Could not preview the page!\n\n\t-#{@page.errors.full_messages.join("\n\n\t-")}"
     end
   end
   
