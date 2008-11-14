@@ -18,10 +18,16 @@ class Admin::PreviewController < ApplicationController
           end
         end
       rescue Exception => ex
-        render :text => "Could not preview the page! #{ex.message}" unless @performed_render
+        unless @performed_render
+          render :update do |page|
+            page.alert("Could not preview the page! #{ex.message}")
+          end
+        end
       end
     else
-      render :text => "Could not preview the page!\n\n\t-#{@page.errors.full_messages.join("\n\n\t-")}"
+      render :update do |page|
+        page.alert("Could not preview the page!\n\n\t-#{@page.errors.full_messages.join("\n\n\t-")}")
+      end
     end
   end
   
