@@ -1,4 +1,5 @@
 <p class="preview-link">
+  <%= hidden_field_tag 'page_preview[parent_id]', @page.parent.id %>
   <script type="text/javascript" charset="utf-8">
     function preview_html(html_text){
       preview_window = window.open('', 'page_preview', 'resizable=yes,status=yes,scrollbars=yes');

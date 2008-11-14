@@ -28,9 +28,7 @@ class Admin::PreviewController < ApplicationController
   private
     def set_attributes
       @page.slug = params[:slug]
-      @page.breadcrumb = params[:breadcrumb]
-      @page.parent = Page.find_by_id(params[:parent_id])
-      @page.parent_id = params[:parent_id]
+      @page.parent = Page.find_by_id(params[:preview][:parent_id].to_i)
       @page.attributes = params[:page]
       set_parts
     end
