@@ -1,9 +1,4 @@
 class Admin::PreviewController < ApplicationController
-  only_allow_access_to(:show,
-                       { :when => [:admin, :developer],
-                         :denied_url => {:controller => 'page', :action => :index},
-                         :denied_message => 
-                         'You must have administrative privileges to perform this action.' })
   
   def create
     @page = page_class.new
