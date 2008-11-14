@@ -1,5 +1,10 @@
 <p id="preview-button" class="buttons">
-  <%= hidden_field_tag 'page_preview[parent_id]', @page.parent.id %>
+  <% if @page.parent? -%>
+    <%= hidden_field_tag 'page_preview[parent_id]', @page.parent.id %>
+  <% end -%>
+  <% unless @page.id.blank? -%>
+    <%= hidden_field_tag 'page_preview[page_id]', @page.id %>
+  <% end -%>
   <script type="text/javascript" charset="utf-8">
     function preview_html(response){
       var contentType = response.getHeader('Content-type');
