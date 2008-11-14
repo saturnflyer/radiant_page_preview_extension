@@ -1,5 +1,5 @@
 <p id="preview-button" class="buttons">
-  <% if @page.parent? -%>
+  <% unless @page.parent.blank? -%>
     <%= hidden_field_tag 'page_preview[parent_id]', @page.parent.id %>
   <% end -%>
   <% unless @page.id.blank? -%>
