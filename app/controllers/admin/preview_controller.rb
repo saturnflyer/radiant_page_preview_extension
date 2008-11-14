@@ -8,7 +8,7 @@ class Admin::PreviewController < ApplicationController
   def create
     @page = Page.new
     set_attributes
-    if @page.valid?
+    if @page.valid? || (@page.errors.size == 1 && @page.errors.on(:slug) == 'slug already in use for child of parent')
       begin
         Page.transaction do
           PagePart.transaction do
