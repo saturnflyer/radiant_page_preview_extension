@@ -8,12 +8,11 @@ class PagePreviewExtension < Radiant::Extension
   define_routes do |map|
     map.resources :preview, :path_prefix => 'admin', :controller => 'admin/preview'
     map.preview_page 'admin/preview', :controller => 'admin/preview', 
-                                       :action => 'create',
-                                       :conditions => { :method => :post }
+                                       :action => 'create'
   end
   
   def activate
-    admin.page.edit.add :form_bottom, "preview_button", :before => 'edit_buttons'
+    admin.pages.edit.add :form_bottom, "preview_button", :before => 'edit_buttons'
   end
   
   def deactivate
