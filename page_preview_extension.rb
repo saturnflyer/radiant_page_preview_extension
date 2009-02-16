@@ -12,6 +12,9 @@ class PagePreviewExtension < Radiant::Extension
   end
   
   def activate
+    if ActiveRecord::Base.connection.tables.include?('config')
+      Radiant::Config['page.preview.validate?'] = true unless Radiant::Config['page.preview.validate?'] == false
+    end
     admin.pages.edit.add :form_bottom, "preview_button", :before => 'edit_buttons'
   end
   

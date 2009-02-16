@@ -3,7 +3,23 @@ class Admin::PreviewController < ApplicationController
   def create
     @page = page_class.new
     set_attributes
-    if @page.valid? || (@page.errors.size == 1 && @page.errors.on(:slug) =~ /slug already in use/)
+    if config['page.preview.validate?'] == false
+      begin
+        Page.transaction do
+          PagePart.transaction do
+            @page.process(request, response)
+            @performed_render = true
+            raise "Unvalidated Render performed"
+          end
+        end
+      rescue Exception => ex
+        unless @performed_render
+          render :update do |page|
+            page.alert("Could not preview the page! #{ex.message}")
+          end
+        end
+      end
+    elsif config['page.preview.validate?'] && @page.valid? #|| (@page.errors.size == 1 && @page.errors.on(:slug) =~ /slug already in use/)
       begin
         Page.transaction do
           PagePart.transaction do
@@ -32,6 +48,7 @@ class Admin::PreviewController < ApplicationController
       if params[:page_preview] && params[:page_preview][:parent_id]
         @page.parent = Page.find_by_id(params[:page_preview][:parent_id].to_i)
       end
+      params[:page][:meta_tags] = '' if @page.respond_to?(:meta_tags)
       @page.attributes = params[:page]
       set_times
       set_parts
