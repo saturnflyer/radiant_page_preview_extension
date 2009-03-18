@@ -1,6 +1,7 @@
 = Page Preview Radiant Extension
 
 by Brian Landau of Viget Labs
+updated by Jim Gay of Saturn Flyer
 
 == Description
 

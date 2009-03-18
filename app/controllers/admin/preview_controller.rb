@@ -52,6 +52,7 @@ class Admin::PreviewController < ApplicationController
       @page.attributes = params[:page]
       set_times
       set_parts
+      set_layout
     end
     
     def set_parts
@@ -59,6 +60,13 @@ class Admin::PreviewController < ApplicationController
       (params[:part]||{}).each {|k,v| parts_to_update[v[:name]] = v }
       parts_to_update.values.each do |attrs|
         @page.parts.build(attrs)
+      end
+    end
+    
+    def set_layout
+      preview_layout = @config['page.preview.layout']
+      if !preview_layout.blank? && @layout = (Layout.find_by_name(preview_layout) || Layout.find(preview_layout))
+        @page[:layout_id] = @layout.id
       end
     end
     
