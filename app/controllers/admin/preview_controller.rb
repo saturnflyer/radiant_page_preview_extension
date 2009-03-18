@@ -56,11 +56,17 @@ class Admin::PreviewController < ApplicationController
     end
     
     def set_parts
-      parts_to_update = {}
-      (params[:part]||{}).each {|k,v| parts_to_update[v[:name]] = v }
-      parts_to_update.values.each do |attrs|
-        @page.parts.build(attrs)
+      parts_to_update = []
+      name_parts, filter_parts, content_parts = [], [], []
+      (params[:page][:parts]||{}).each {|form_part|
+        name_parts << form_part['name'] if form_part.has_key?('name')
+        filter_parts << form_part['filter_id'] if form_part.has_key?('filter_id')
+        content_parts << form_part['content'] if form_part.has_key?('content')
+      }
+      name_parts.each_with_index do |name, i|
+        parts_to_update << {:name => name, :filter_id => filter_parts[i], :content => content_parts[i]}
       end
+      @page.parts_with_pending = parts_to_update
     end
     
     def set_layout
